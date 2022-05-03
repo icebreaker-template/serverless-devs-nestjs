@@ -1,0 +1,3 @@
+.s
+# 必须上传 package.json 不然 nodejs 寻找 node_modules 包会出现寻址错误
+code/package-lock.json
