@@ -20,7 +20,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "deploy": "s deploy",
-    "deploy:container": "s deploy -t s.container.yaml"
+    "deploy:container": "s deploy -t s.container.yaml",
+    "deploy:layer": "s layer publish --layer-name node-v16 --code ./runtime/node-v16.15.0-linux-x64 --region cn-hangzhou",
+    "deploy:runtime": "s deploy -t s.runtime.yaml"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",

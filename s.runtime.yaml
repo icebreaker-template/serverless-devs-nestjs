@@ -28,37 +28,38 @@ vars: # 全局变量
     description: 'Serverless Devs Web Framework Service'
 
 services:
-  helloworld: # 业务名称/模块名称
-    # 如果只想针对 helloworld 下面的业务进行相关操作，可以在命令行中加上 helloworld，例如：
-    # 只对helloworld进行构建：s helloworld build
-    # 如果不带有 helloworld ，而是直接执行 s build，工具则会对当前Yaml下，所有和 helloworld 平级的业务模块（如有其他平级的模块，例如下面注释的next-function），按照一定顺序进行 build 操作
+  framework: # 业务名称/模块名称
     component: fc # 组件名称，Serverless Devs 工具本身类似于一种游戏机，不具备具体的业务能力，组件类似于游戏卡，用户通过向游戏机中插入不同的游戏卡实现不同的功能，即通过使用不同的组件实现不同的具体业务能力
     actions: # 自定义执行逻辑，关于actions 的使用，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#行为描述
       pre-deploy: # 在deploy之前运行
-        - component: fc build --use-docker --dockerfile ./code/Dockerfile # 要运行的组件，格式为【component: 组件名 命令 参数】（可以通过s cli registry search --type Component 获取组件列表）
-    props:
+        - run: npm install --production # 要执行的系统命令，类似于一种钩子的形式
+          path: ./code # 执行系统命令/钩子的路径
+    props: # 组件的属性值
       region: ${vars.region} # 关于变量的使用方法，可以参考：https://www.serverless-devs.com/serverless-devs/yaml#变量赋值
       service: ${vars.service}
       function:
-        name: nest-custom-container
-        description: 'hello world by serverless devs'
-        caPort: 9000
-        memorySize: 256
+        name: nest-custom-runtime
+        description: 'Serverless Devs Web Framework Function'
+        codeUri: './code'
+        runtime: custom
         timeout: 60
-        runtime: custom-container
-        customContainerConfig:
-          image: registry.cn-hangzhou.aliyuncs.com/som-custom-container/nest-app
-        codeUri: ./code
+        caPort: 9000
+        layers:
+          - 923ab29c1838fa0a9b448c9acb970d27#node-v16#2
+        customRuntimeConfig:
+          command:
+            - /opt/node-v16.15.0-linux-x64/bin/node
+          args:
+            - 'dist/main.js'
       triggers:
-        - name: http-trigger
+        - name: httpTrigger
           type: http
           config:
             authType: anonymous
             methods:
               - GET
-              - POST
       customDomains:
         - domainName: auto
           protocol: HTTP
           routeConfigs:
-            - path: /*
+            - path: '/*'
