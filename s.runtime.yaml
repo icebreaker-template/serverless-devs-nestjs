@@ -44,11 +44,11 @@ services:
         runtime: custom
         timeout: 60
         caPort: 9000
-        layers:
-          - 923ab29c1838fa0a9b448c9acb970d27#node-v16#2
+        # layers:
+        #   - 923ab29c1838fa0a9b448c9acb970d27#node-v16#2
         customRuntimeConfig:
           command:
-            - /opt/node-v16.15.0-linux-x64/bin/node
+            - /code/node-v16.15.0-linux-x64/bin/node
           args:
             - 'dist/main.js'
       triggers:

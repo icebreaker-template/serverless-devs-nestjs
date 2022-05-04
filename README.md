@@ -22,8 +22,9 @@ $ npm install @serverless-devs/s -g
 - `scripts` 脚本目录
 - `src` 源代码目录
 - `test` 测试目录
-- `s.yaml` 预置 `Nodejs Runtime` 部署文件
+- `s.yaml` 预置 `Nodejs 14 Runtime` 部署文件
 - `s.container.yaml` `Custom Container` 方式部署文件(需要本地安装`docker`和开通阿里云个人版容器镜像服务)
+- `s.runtime.yaml` `Custom Runtime` 方式部署文件, 需要下载 [`nodejs Linux Binaries (x64)`](https://nodejs.org/en/download/)
 
 
 
@@ -49,3 +50,11 @@ $ npm install @serverless-devs/s -g
 在部署前，请更换 `s.container.yaml` 中 `customContainerConfig` -> `image` 的地址，为你自己的镜像仓库地址！
 
 在根目录下，执行 `npm run deploy:container` 即可部署成功
+
+### Custom Runtime 部署
+
+生效配置文件为 `s.runtime.yaml` 
+
+在部署前，请先下载 [`nodejs Linux Binaries (x64)`](https://nodejs.org/en/download/) 并解压到 `code` 目录(本模板使用的是 `node-v16.15.0-linux-x64`, 如果不是这个版本需要更改 `yml` 的 `customRuntimeConfig`)
+
+在根目录下，执行 `npm run deploy:runtime` 即可部署成功
