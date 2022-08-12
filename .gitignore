@@ -103,7 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# auto cp package.json
-code/package*.json
-
 .s
+code/**/*
