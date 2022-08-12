@@ -5,10 +5,10 @@
 ## 安装 serverless-devs
 
 ```shell
-$ npm install @serverless-devs/s -g
+npm install @serverless-devs/s -g
 ```
 
-`cmd/bash` 调用 `s -v` 出现 
+`cmd/bash` 调用 `s -v` 出现
 
 ```shell
 @serverless-devs/s: 2.1.0, core: 0.1.35, s-home: C:\Users\13243\.s, win32-x64, node-v16.14.2
@@ -18,7 +18,8 @@ $ npm install @serverless-devs/s -g
 
 ## 根目录解析
 
-- `code` 部署目录
+- `code` `serverless`部署目录
+- `dist` `build` 部署目录
 - `scripts` 脚本目录
 - `src` 源代码目录
 - `test` 测试目录
@@ -26,7 +27,11 @@ $ npm install @serverless-devs/s -g
 - `s.container.yaml` `Custom Container` 方式部署文件(需要本地安装`docker`和开通阿里云个人版容器镜像服务)
 - `s.runtime.yaml` `Custom Runtime` 方式部署文件, 需要下载 [`nodejs Linux Binaries (x64)`](https://nodejs.org/en/download/)
 
+## 打包
 
+本项目使用 `webpack` 来让部署的函数文件体积更小，从而减少冷启动的时间。`npm run build:sls` 可以把所有的代码打到 `code` 目录下。
+
+如果有部分包，无法使用 `webpack` 顺利打包，则可以把它的名称，放入 `webpack.config.js` 的 `externals` 中。
 
 ## code 目录解析
 
@@ -45,7 +50,7 @@ $ npm install @serverless-devs/s -g
 
 ### Custom Container 部署
 
-生效配置文件为 `s.container.yaml` 
+生效配置文件为 `s.container.yaml`
 
 在部署前，请更换 `s.container.yaml` 中 `customContainerConfig` -> `image` 的地址，为你自己的镜像仓库地址！
 
@@ -53,7 +58,7 @@ $ npm install @serverless-devs/s -g
 
 ### Custom Runtime 部署
 
-生效配置文件为 `s.runtime.yaml` 
+生效配置文件为 `s.runtime.yaml`
 
 在部署前，请先下载 [`nodejs Linux Binaries (x64)`](https://nodejs.org/en/download/) 并解压到 `code` 目录(本模板使用的是 `node-v16.15.0-linux-x64`, 如果不是这个版本需要更改 `yml` 的 `customRuntimeConfig`)
 

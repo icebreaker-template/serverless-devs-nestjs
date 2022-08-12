@@ -6,9 +6,9 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf code",
-    "build": "node scripts/cp && nest build --webpack",
-    "build:raw": "nest build",
+    "prebuild": "rimraf dist",
+    "build:sls": "rimraf code && node scripts/cp && nest build --webpack",
+    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
